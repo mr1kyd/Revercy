@@ -9,8 +9,15 @@
 <html>
   <head>
     <title>$Title$</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="res/js/ajax.js"></script>
   </head>
   <body>
-  $END$
+  x=<input type="text" id="i">
+  y=<input type="text" id="j">
+  <input type="button" id="button" value="ход">
+  <div id="field">
+
+  </div>
   </body>
 </html>
