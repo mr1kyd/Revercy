@@ -13,7 +13,7 @@ public class ReversiPlayer {
 	    result = minimaxWithAB(board, playerColor, 5, true, playerColor, -10000, 10000);
 	}else{ //run a slightly different algorithm for endgame
 	*/
-        result = minimax(board, playerColor, 5, true, playerColor);
+        result = minimax(board, playerColor, 1, true, playerColor);
 //	}
 
         int iVal = result[1];

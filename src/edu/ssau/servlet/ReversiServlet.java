@@ -1,6 +1,7 @@
 package edu.ssau.servlet;
 
 import edu.ssau.revercy.ReversiBoard;
+import edu.ssau.revercy.ReversiPlayer;
 import org.json.JSONException;
 
 import javax.servlet.ServletException;
@@ -38,7 +39,7 @@ public class ReversiServlet extends HttpServlet{
                     board.playMove(human, i, j);
                 }
             }
-            //ReversiPlayer.playMove(board, computer);
+            ReversiPlayer.playMove(board, computer);
         }
         PrintWriter pw = resp.getWriter();
         try {

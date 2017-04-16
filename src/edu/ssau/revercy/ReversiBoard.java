@@ -221,6 +221,8 @@ public class ReversiBoard {
             }
         }
         json.put("board", boardJSON);
+        json.put("playerScore",getScore('L'));
+        json.put("computerScore",getScore('D'));
         return json;
     }
 
