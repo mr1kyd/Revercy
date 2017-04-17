@@ -3,6 +3,7 @@ package edu.ssau.servlet;
 import edu.ssau.revercy.ReversiBoard;
 import edu.ssau.revercy.ReversiPlayer;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,7 @@ public class ReversiServlet extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json;charset=utf-8");
         HttpSession session = req.getSession();
+        JSONObject object = new JSONObject();
         char human = 'L';
         char computer = 'D';
         ReversiBoard board = (ReversiBoard)session.getAttribute("reversiboard");
@@ -38,12 +40,18 @@ public class ReversiServlet extends HttpServlet{
                 if (board.isValid(human, i, j)) {
                     board.playMove(human, i, j);
                 }
+                try {
+                    object.put("playerMove", board.boardToJSON());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             ReversiPlayer.playMove(board, computer);
         }
         PrintWriter pw = resp.getWriter();
         try {
-            pw.write(board.boardToJSON().toString());
+            object.put("computerMove", board.boardToJSON());
+            pw.write(object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

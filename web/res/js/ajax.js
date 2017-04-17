@@ -3,6 +3,8 @@
 */
 function sendMove(i, j) {
     var data = {"x": i, "y": j};
+    $('#cell_' + (i + 1) + (j + 1)).removeClass('yellowCell');
+    $('#cell_' + (i + 1) + (j + 1)).html("<div class='playerCell'>");
     $.ajax({
         url: "reversi",
         type: 'get',
@@ -10,7 +12,13 @@ function sendMove(i, j) {
         dataType: 'json',
         data: data,
         success: function (result) {
-            renderBoard(result);
+            var computerMove = result.computerMove;
+            var playerMove = result.playerMove;
+            renderBoard(playerMove, 'player');
+            var millisecondsToWait = 500;
+            setTimeout(function () {
+                renderBoard(computerMove, 'computer');
+            }, millisecondsToWait);
         }
     });
 }
@@ -20,13 +28,15 @@ $(document).ready(function () {
         url: "reversi",
         type: 'get',
         dataType: 'json',
-        success: function(result){
-            renderBoard(result);
-        }});
+        success: function (result) {
+            renderBoard(result.computerMove, 'computer');
+        }
+    });
 });
 
-function renderBoard(json) {
+function renderBoard(json, who) {
     var board = json.board;
+    var validMove = 0;
     for(var i = 0; i < board.length; i++){
         for(var j = 0; j < board[0].length; j++){
             if(board[i][j] === 0){
@@ -34,6 +44,7 @@ function renderBoard(json) {
             }
             if(board[i][j] === 1){
                 $('#cell_'+(i+1)+(j+1)).addClass('yellowCell');
+                validMove++;
             }
             if(board[i][j] === 2){
                 $('#cell_'+(i+1)+(j+1)).removeClass('yellowCell');
@@ -44,5 +55,22 @@ function renderBoard(json) {
                 $('#cell_'+(i+1)+(j+1)).html("<div class='computerCell'>");
             }
         }
+    }
+    var playerScore = json.playerScore;
+    var computerScore = json.computerScore;
+    $('#player').html(playerScore);
+    $('#computer').html(computerScore);
+    if(validMove == 0 && who == 'computer'){
+        var message;
+        if(playerScore > computerScore){
+            message = "Вы выйграли";
+        }
+        else if(computerScore == playerScore){
+            message = "Ничья";
+        }
+        else{
+            message = "Вы проиграли";
+        }
+        alert(message);
     }
 }

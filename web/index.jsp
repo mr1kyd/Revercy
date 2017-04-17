@@ -14,6 +14,14 @@
     <link rel="stylesheet" href="res/style.css">
   </head>
   <body>
+  <div class="header">
+		  <div class="left">
+				  Игрок:<span id="player"></span>
+		  </div>
+		  <div class="right">
+				  <span id="computer"></span>:Компьютер
+		  </div>
+  </div>
   <div class="wraper">
       <table class="table">
         <tr>

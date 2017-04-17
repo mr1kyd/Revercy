@@ -37,3 +37,14 @@
     -webkit-border-radius: 50px;
     border-radius: 50px;
 }
+.header{
+    height: 6%;
+    background-color: #fff88d;
+    margin-bottom: 15px;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
