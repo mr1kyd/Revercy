@@ -2,25 +2,27 @@
 * Created by EAA on 15.04.2017.
 */
 function sendMove(i, j) {
-    var data = {"x": i, "y": j};
-    $('#cell_' + (i + 1) + (j + 1)).removeClass('yellowCell');
-    $('#cell_' + (i + 1) + (j + 1)).html("<div class='playerCell'>");
-    $.ajax({
-        url: "reversi",
-        type: 'get',
-        data: data,
-        dataType: 'json',
-        data: data,
-        success: function (result) {
-            var computerMove = result.computerMove;
-            var playerMove = result.playerMove;
-            renderBoard(playerMove, 'player');
-            var millisecondsToWait = 500;
-            setTimeout(function () {
-                renderBoard(computerMove, 'computer');
-            }, millisecondsToWait);
-        }
-    });
+    if($('#cell_' + (i + 1) + (j + 1)).attr('class').indexOf('yellowCell') !== -1) {
+        var data = {"x": i, "y": j};
+        $('#cell_' + (i + 1) + (j + 1)).removeClass('yellowCell');
+        $('#cell_' + (i + 1) + (j + 1)).html("<div class='playerCell'>");
+        $.ajax({
+            url: "reversi",
+            type: 'get',
+            data: data,
+            dataType: 'json',
+            data: data,
+            success: function (result) {
+                var computerMove = result.computerMove;
+                var playerMove = result.playerMove;
+                renderBoard(playerMove, 'player');
+                var millisecondsToWait = 500;
+                setTimeout(function () {
+                    renderBoard(computerMove, 'computer');
+                }, millisecondsToWait);
+            }
+        });
+    }
 }
 
 $(document).ready(function () {
@@ -32,6 +34,21 @@ $(document).ready(function () {
             renderBoard(result.computerMove, 'computer');
         }
     });
+    $('#newGame').click(function () {
+        $('div.playerCell').remove();
+        $('div.computerCell').remove();
+        var data = {"newGame": true};
+        $.ajax({
+            url: "reversi",
+            data: data,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                alert("Новая игра начинается!");
+                renderBoard(result.computerMove, 'computer');
+            }
+        });
+    })
 });
 
 function renderBoard(json, who) {

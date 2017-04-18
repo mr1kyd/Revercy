@@ -21,6 +21,9 @@
 		  <div class="right">
 				  <span id="computer"></span>:Компьютер
 		  </div>
+		  <center style="margin: 0px 120px 0px 120px;">
+				  <input type="button" id="newGame" value="Новая игра"/>
+		  </center>
   </div>
   <div class="wraper">
       <table class="table">

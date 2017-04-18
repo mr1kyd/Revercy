@@ -32,21 +32,29 @@ public class ReversiServlet extends HttpServlet{
             session.setAttribute("reversiboard", board);
         }
         else {
-            String x = req.getParameter("x");
-            String y = req.getParameter("y");
-            if(x != null && y != null) {
-                int i = Integer.valueOf(x);
-                int j = Integer.valueOf(y);
-                if (board.isValid(human, i, j)) {
-                    board.playMove(human, i, j);
-                }
-                try {
-                    object.put("playerMove", board.boardToJSON());
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            String newGame = req.getParameter("newGame");
+            if (newGame == null) {
+                String x = req.getParameter("x");
+                String y = req.getParameter("y");
+                if (x != null && y != null) {
+                    int i = Integer.valueOf(x);
+                    int j = Integer.valueOf(y);
+                    if (board.isValid(human, i, j)) {
+                        board.playMove(human, i, j);
+                    }
+                    try {
+                        object.put("playerMove", board.boardToJSON());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    ReversiPlayer.playMove(board, computer);
                 }
             }
-            ReversiPlayer.playMove(board, computer);
+            else if(newGame.equals("true")){
+                board = new ReversiBoard(8);
+                session.removeAttribute("reversiboard");
+                session.setAttribute("reversiboard", board);
+            }
         }
         PrintWriter pw = resp.getWriter();
         try {
