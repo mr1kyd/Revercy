@@ -1,0 +1,53 @@
+body{
+    margin: 0px;
+}
+.wraper{
+    width: 649px;
+    height: 640px;
+    margin: auto;
+}
+.table{
+    border-collapse: collapse;
+    background-color: #0b4127;
+}
+.cell{
+    border: 1px solid black;
+    width: 80px;
+    height: 80px;
+
+}
+.yellowCell{
+    border: 2px solid white;
+}
+.yellowCell:hover{
+    cursor: pointer;
+}
+.playerCell {
+    margin: 2px;
+    width: 75px;
+    height: 75px;
+    background: white;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+.computerCell {
+    margin: 2px;
+    width: 75px;
+    height: 75px;
+    background: black;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+.header{
+    height: 6%;
+    background-color: #fff88d;
+    margin: 0px 0px 15px;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
